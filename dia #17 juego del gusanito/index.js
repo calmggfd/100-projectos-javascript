@@ -100,4 +100,4 @@ const   initGame    =   ()  =>{
 
 updateFoodPosition();
 setInterval =   setInterval(initGame,   100);
-document.addEventListener("keyup",  changeDirection);
+document.addEventListener("keyup",  changeDirection)
