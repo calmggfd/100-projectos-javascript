@@ -9,7 +9,7 @@ voices();
 
 function    voices()    {
     for (let    voice   of  synth.getVoices())  {
-        let select  =   voice.name  === "Google US  Enligh" ?   "selected"  :   "";
+        let selected  =   voice.name  === "Google US  Enligh" ?   "selected"  :   "";
         let option  =   `<option    value=${voice.name}"    ${selected}>${voice.name}   (${voice.lang})</option>`;
         voiceList.insertAdjacentHTML("beforeend",   option);
     }
@@ -37,10 +37,10 @@ speechBtn.addEventListener("click", e  =>{
         // IF   TEXT    WAS LONG,   ADD RESUME  AND PAUSE   FUNCTION
         if  (texarea.value.length   >   80) {
             setInterval(() => {
-               if(!synth.speaking   &&  !isSpeaking)    {
+            if(!synth.speaking   &&  !isSpeaking)    {
                 isSpeaking  =   true;
                 speechBtn.innerText =   "Convert    To  Speech";
-               }    else    {}
+            }    else    {}
             }, 500);
             if  (isSpeaking)    {
                 synth.resume();
