@@ -1,0 +1,95 @@
+@import url('https://fonts.cdnfonts.com/css/roof-runners-active');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roof runners active', sans-serif;                            
+}
+
+body{
+    background-color: #2e5090;
+}
+
+.wrapper{
+    background-color: #fff;
+    height: 600px;
+    width: 600px;
+    position: absolute;
+    transform: translate(-50%,  -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 9px;
+}
+
+.game{
+    height: 500px;
+    width: 500px;
+    background-color: #101010;
+    border-radius: 8px;
+    position: absolute;
+    transform: translate(-50%,  -50%);
+    top: 50%;
+    left: 50%;
+}
+
+.colors{
+    height: 210px;
+    width: 210px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.color1{
+    background-color: #006400;
+    border-radius: 10px 0   0   0;
+    top: 30px;
+    left: 30px;
+}
+
+.color2{
+    background-color: #800000;
+    border-radius: 10px 0   0   0;
+    top: 30px;
+    right: 30px;
+}
+
+.color3{
+    background-color: #00008b;
+    border-radius:  0   0   10px   0;
+    bottom: 30px;
+    right: 30px;
+}
+
+.color4{
+    background-color: #808000;
+    border-radius: 0   0   0    10px;
+    bottom: 30px;
+    left: 30px;
+}
+
+.game::before{
+    position: absolute;
+    content: "";
+    background: #101010;
+    z-index: 1;
+    width: 240px;
+    height: 240px;
+    transform: translate(-50%,  -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10%;
+}
+
+#score{
+    background-color: #fff;
+    font-size: 24px;
+    position: absolute;
+    transform: translate(-50%,  -50%);
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    width: 100px;
+    height: 80px;
+    display: grid;
+}
