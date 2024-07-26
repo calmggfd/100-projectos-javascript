@@ -1,7 +1,7 @@
 const resultContainer   =   document.getElementById("result");
 const   searchBtn   =   document.getElementById("search-button");
 const   searchInput =   document.getElementById("search-input");
-const   searchContainer =   document.querySelector("search-box");
+const   searchContainer =   document.querySelector(".search-box");
 
 // API URL TO FETCH MEAL DATA
 const apiUrl    =   "https://www.themealdb.com/api/json/v1/1/search.php?s=";
@@ -16,7 +16,7 @@ searchInput.addEventListener("keydown", function    (e){
 });
 
 // HANDLE   MEAL    FUNCTION
-function    searchMeal(){
+function    searchMeal(){ 
     const   userInput   =   searchInput.value.trim();
     if(!userInput){
         resultContainer.innerHTML   =   `<h3>Input Field Cannot Be  Empty</h3>`;
@@ -51,17 +51,45 @@ function    searchMeal(){
         resultContainer.innerHTML   =   recipeHtml;
 
         const   hideRecipeBtn   =   document.getElementById("hide-recipe");
+        hideRecipeBtn.addEventListener("click", hideRecipe);
         const   showRecipeBtn   =   document.getElementById("show-recipe");
         showRecipeBtn.addEventListener("click", showRecipe);
         searchContainer.style.opacity   =   '0';
         searchContainer.style.display   =   'none';
     })
     // HANDLE   ERROR
-    .catch(()   =>{
+    .catch(()   =>  {
         searchContainer.style.opacity   =   '1';
         searchContainer.style.display   =   'grid';
-        searchContainer.innerHTML   =   `<h3>Error  fetching data!</h3>`;
+        resultContainer.innerHTML   =   `<h3>Error  fetching data!</h3>`;
     });
 }
 
 // GENERATE HTML    FOR LIST OF INGREDIENTS
+function    getIngredients(meal){
+    let ingreHtml   =   "";
+    // THERE CAN MAXIMUM OF 20 INGREDIENTS
+    for(let i   =   1;  i   <=  20; i++){
+        const   ingredient  =   meal[`strIngredient${i}`];
+        if(ingredient){
+            const   measure =   meal[`strMeasure${i}`];
+            ingreHtml   += `<li>${measure}  ${ingredient}</li>`;
+        }
+        // IF INGREDIENT DOESN'T EXIST, EXIT LOOP
+        else{
+            break;
+        }
+    }
+    return ingreHtml;
+}
+
+// HANDLE   SHOW AND HIDE RECIPE FOR A MEAL
+function    hideRecipe(){
+    const   recipe  =   document.getElementById("recipe");
+    recipe.style.display    =   "none";
+}
+
+function    showRecipe(){
+    const   recipe  =   document.getElementById("recipe");
+    recipe.style.display    =   "block";
+}
