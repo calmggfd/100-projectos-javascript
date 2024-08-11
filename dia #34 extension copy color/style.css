@@ -1,151 +1,85 @@
-@import url('https://fonts.cdnfonts.com/css/slimed');
+@import url('https://fonts.cdnfonts.com/css/messing-lettern');
 
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Slimed', sans-serif;
+    font-size: 27px;
+    font-family: 'Messing Lettern', sans-serif;
 }
 
 body{
-    /* background-color: #2e5090; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #2e5090;
 }
 
-.container{
-    background-color: #fff;
+.popup{
     width: 350px;
 }
 
-.container :where(.picker,  header, .all-colors){
+.popup  :where(.picker, header, .all-colors, .color) {
     display: flex;
     align-items: center;
-    border-radius: 0    0   35px    35px;
 }
 
-.container  .picker{
-    padding: 35px   0;
-    background-color: #c8e6c9;
+.popup  .picker{
+    padding: 30px   0;
     justify-content: center;
+    background-color: #e3f2fd;
 }
 
-.picker #picker-btn{
-    margin-right: 8px;
-}
-
-.picker #picker-btn,    .picker #export-btn{
-    border: none;
+.picker #color-picker{
     outline: none;
+    border: none;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
-    padding: 6px    12px;
-    background-color: #43a047;
     border-radius: 5px;
-    transition: all 1s    ease;
+    padding: 10px   20px;
+    background: #5372f0;
 }
 
-.picker #picker-btn:hover,  .picker #export-btn:hover{
-    background-color: #2e7d32;
-}
-
-.colors-list{
+.picked-colors{
     margin: 10px    15px;
 }
 
-.colors-list    header{
+.picked-colors  header{
     justify-content: space-between;
 }
 
-header #clear-btn{
+.picked-colors  .clear-all{
+    color: #5372f0;
     cursor: pointer;
     font-size: 0.9rem;
-    color: #43a047;
 }
 
-header #clear-btn:hover{
-    color: #2e7d32;
-}
-
-.colors-list    .hide{
-    display: none;
-}
-
-.colors-list    .all-colors{
+.all-colors{
+    margin: 10px    0;
     flex-wrap: wrap;
-    list-style: none;
-    margin: 10px    0   0;
 }
 
 .all-colors .color{
-    display: flex;
     cursor: pointer;
     margin-bottom: 10px;
     width: calc(100%    /   3);
 }
 
-.all-colors .rect{
+.all-colors .color  .rect{
+    display: block;
     height: 22px;
     width: 22px;
-    display: block;
-    margin-right: 3px;
-    border-radius: 3px;
+    margin-right: 8px;
+    border-radius: 5px;
+    background: #5372f0;
 }
 
-.all-colors .color  span{
-    font-size: 0.86rem;
+.all-colors .color  .value{
+    font-size: 0.96rem;
     font-weight: 500;
     text-transform: uppercase;
 }
 
-.color-popup{
-    position: fixed;
-    top: 52px;
-    left: 50%;
-    transform: translate(-50%,  -50%);
-    width: 300px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0   2px 4px rgba(0, 0, 0, 0.2);
-    z-index: 9999;
-}
-
-.color-popup-content{
-    padding: 20px;
-}
-
-.color-info{
-    display: flex;
-    align-items: center;
-}
-
-.color-preview{
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    margin-right: 10px;
-}
-
-.colors-details{
-    flex-grow: 1;
-}
-
-.colors-value{
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-.label{
-    font-weight: bold;
-    margin-right: 5px;
-}
-
-.value{
-    cursor: pointer;
-}
-
-span.close-popup{
-    font-size: 14px;
-    cursor: pointer;
-    float: right;
-}
+/* https://www.youtube.com/watch?v=coj-l7IrwGU */
