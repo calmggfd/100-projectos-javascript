@@ -15,8 +15,8 @@ body    {
 }
 
 ::selection {
-    color: #fff;
-    background: #1e293b;
+    color: #2fc41b;
+    background: #1ab1c5;
 }
 
 .wrapper    {
@@ -56,7 +56,7 @@ body    {
 }
 
 .task-input input::placeholder  {
-    color: #bfbfbf;
+    color: #c5c5c3;
 }
 
 .controls,  li  {
