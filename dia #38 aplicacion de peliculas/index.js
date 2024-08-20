@@ -9,18 +9,6 @@ let page =  1;
 let isSearching =   false;
 
 // FETCH JSON DATA FROM URL
-// async   function    fetchData(url){
-//     try{
-//         const response  =   await   fetch(url);
-//         if(!response.ok){
-//             throw   new error("Network response was not ok.");
-//         }
-//         return  await   response.json();
-//     }catch  (error) {
-//         return  null;
-//     }
-// }
-
 async   function    fetchData(url){
     try{
         const response  =   await   fetch(url);
@@ -41,45 +29,70 @@ async   function    fetchAndShowResult(url) {
     }
 }
 
-// CREATE MOVIE CARD HTML TEMPLATE
-// function    createMovieCard(movie){
-//     const { posterPath, originalTitle,  releaseDate,    overview}   =   movie;
-//     const imagePath =   posterPath  ?   imgApi  +   posterPath  :   "./img-01.jpeg";
-//     const truncatedTitle    =   originalTitle.length    >   15  ?   originalTitle.slice(0,  15) +   "..."   :   originalTitle;
-//     const formattedDate =   releaseDate ||  "No release date";
-//     const cardTemplate  =   `
-        
-//     `;
-//     return  cardTemplate;
-// }
-
-function    createMovieCard(movie){
-    const { posterPath, originalTitle,  releaseDate,    overview }  =   movie;
+function createMovieCard(movie){
+    const { posterPath, originalTitle,  releaseDate,    overview    }   =   movie;
     const imagePath =   posterPath  ?   imgApi  +   posterPath  :   "./img-01.jpeg";
     const truncatedTitle    =   originalTitle.length    >   15  ?   originalTitle.slice(0,  15) +   "..."   :   originalTitle;
-    const formattedDate =   releaseDate ||  "No release date";
+    const formattedDate =   releaseDate ||  "No Release date";
     const cardTemplate  =   `
-        <div    class="column">
-            <div    class="card">
-                <a class="card-media"   href="./img-01.jpeg">
-                    <img    src="${imagePath}"  alt="${originalTitle}"  width="100%" />
-                </a>
-                <div    class="card-content">
-                    <div    class="card-header">
-                        <div    class="left-content">
+        <div class="column">
+        <div class="card">
+            <a class="card-media" href="./img-01.jpeg">
+                <img src="${imagePath}" alt="${originalTitle}" width="100%" />
+            </a>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="left-content">
                         <h3 style="font-weight: 600">${truncatedTitle}</h3>
                         <span style="color: #12efec">${formattedDate}</span>
-                        </div>
-                    <div    class="right-content">
-                        <a  href="${imagePath}" target="_blank" class="card-btn">See cover</a>
+                    </div>
+                    <div class="right-content">
+                        <a href="${imagePath}" target="_blank" class="card-btn">See cover</a>
                     </div>
                 </div>
-                <div    class="info">
-                    ${overview  ||  "No overview    yet..."}
+                <div class="info">
+                    ${overview || "No overview yet..."}
                 </div>
             </div>
         </div>
     </div>
     `;
     return  cardTemplate;
+}
+
+// CLEAR RESULT ELEMENTS FOR SEARCH
+// function    clearResults()  {
+//     result.innerHTML    =   "";
+// }
+function    clearResults(){
+    result.innerHTML    =   "";
+}
+
+// SHOW RESULTS IN PAGE
+// function    showResults(item){
+//     const newContent    =   item.map(createMovieCard).join("");
+//     result.innerHTML    =   newContent  ||  "<p> No results found.</p>";
+// }
+function    showResults(item){
+    const newContent    =   item.map(createMovieCard).join("");
+    result.innerHTML    =   newContent  ||  "<p>No results found</p>";
+}
+
+// LOAD MORE RESULTS
+// async   function loadMoreResults(){
+//     if(isSearching){
+//         return;
+//     }
+//     page++;
+//     const searchTerm    =   query.value;
+//     const url   =   searchTerm  ?   `${searchUrl}${searchTerm}&page=${page}`    :   `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.des&api_key=${apiKey}&page=${page}`;
+//     await   fetchAndShowResult(url);
+// }
+async   function    loadMoreResults(){
+    if(isSearching){
+        return;
+    }
+    page++;
+    const searchTerm    =   query.value;
+    const url   =   searchTerm  ||  `${searchUrl}${searchTerm}&page=${page}`
 }
