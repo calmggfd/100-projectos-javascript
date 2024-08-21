@@ -61,38 +61,65 @@ function createMovieCard(movie){
 }
 
 // CLEAR RESULT ELEMENTS FOR SEARCH
-// function    clearResults()  {
-//     result.innerHTML    =   "";
-// }
 function    clearResults(){
     result.innerHTML    =   "";
 }
 
 // SHOW RESULTS IN PAGE
-// function    showResults(item){
-//     const newContent    =   item.map(createMovieCard).join("");
-//     result.innerHTML    =   newContent  ||  "<p> No results found.</p>";
-// }
 function    showResults(item){
     const newContent    =   item.map(createMovieCard).join("");
     result.innerHTML    =   newContent  ||  "<p>No results found</p>";
 }
 
 // LOAD MORE RESULTS
-// async   function loadMoreResults(){
-//     if(isSearching){
-//         return;
-//     }
-//     page++;
-//     const searchTerm    =   query.value;
-//     const url   =   searchTerm  ?   `${searchUrl}${searchTerm}&page=${page}`    :   `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.des&api_key=${apiKey}&page=${page}`;
-//     await   fetchAndShowResult(url);
-// }
 async   function    loadMoreResults(){
     if(isSearching){
         return;
     }
     page++;
     const searchTerm    =   query.value;
-    const url   =   searchTerm  ||  `${searchUrl}${searchTerm}&page=${page}`
+    const url   =   searchTerm  ?   `${searchUrl}${searchTerm}&page=${page}`    :   `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.des&api_key=${apiKey}&page=${page}`;
+    await   fetchAndShowResult(url);
 }
+
+// DETECT EN OF PAGE ON LOAD MORE RESULTS
+// function    detectEnd(){
+//     const { scrollTop,   clientHeight,    scrollHeight}   =   document.documentElement;
+//     if(scrollTop    +   clientHeight    >=  scrollHeight    -   20){
+//         loadMoreResults();
+//     }
+// }
+
+function    detectEnd(){
+    const { scrollTop,  clientHeight,   scrollHeight }  =   document.documentElement;
+    if(scrollTop    +   clientHeight    >=  scrollHeight    -   20){
+        loadMoreResults();
+    }
+}
+
+
+// HANDLE SEARCH
+// async function handleSearch(e){
+//     e.preventDefault();
+//     const searchTerm    =   query.value.trim();
+//     if(searchTerm){
+//         isSearching =   true;
+//         clearResults();
+//         const newUrl    =   `${searchUrl}${searchTerm}&page=${page}`;
+//         await   fetchAndShowResult(newUrl);
+//         query.value =   "";
+//     }
+// }
+
+async function   handleSearch(e){
+    e.preventDefault();
+    const searchTerm    =   query.value.trim();
+    if(searchTerm){
+        isSearching =   true;
+        clearResults();
+        const newUrl    =   `${searchUrl}${searchTerm}&page=${page}`;
+        await   fetchAndShowResult(newUrl);
+        query.value =   "";
+    }
+}
+
