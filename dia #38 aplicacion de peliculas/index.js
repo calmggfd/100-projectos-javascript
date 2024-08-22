@@ -30,15 +30,15 @@ async   function    fetchAndShowResult(url) {
 }
 
 function createMovieCard(movie){
-    const { posterPath, originalTitle,  releaseDate,    overview    }   =   movie;
-    const imagePath =   posterPath  ?   imgApi  +   posterPath  :   "./img-01.jpeg";
-    const truncatedTitle    =   originalTitle.length    >   15  ?   originalTitle.slice(0,  15) +   "..."   :   originalTitle;
-    const formattedDate =   releaseDate ||  "No Release date";
+    const { poster_path, original_title,  release_date,    overview    }   =   movie;
+    const imagePath =   poster_path  ?   imgApi  +   poster_path  :   "./img-01.jpeg";
+    const truncatedTitle    =   original_title.length    >   15  ?   original_title.slice(0,  15) +   "..."   :   original_title;
+    const formattedDate =   release_date ||  "No Release date";
     const cardTemplate  =   `
         <div class="column">
         <div class="card">
             <a class="card-media" href="./img-01.jpeg">
-                <img src="${imagePath}" alt="${originalTitle}" width="100%" />
+                <img src="${imagePath}" alt="${original_title}" width="100%" />
             </a>
             <div class="card-content">
                 <div class="card-header">
@@ -130,6 +130,15 @@ window.addEventListener('scroll',   detectEnd);
 window.addEventListener('resize',   detectEnd);
 
 // INITIALIZE   THE PAGE
+// async   function    init(){
+//     clearResults();
+//     const url   =   `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.des&api_key=${apiKey}&page=${page}`;
+//     isSearching =   false;
+//     await   fetchAndShowResult(url);
+// }
+
+// init();
+
 async   function    init(){
     clearResults();
     const url   =   `https://api.themoviedb.org/3/discover/movie?sort_by=popularity.des&api_key=${apiKey}&page=${page}`;
