@@ -9,7 +9,7 @@ const exRateTxt =   document.querySelector("form    .result");
 
 [fromCur,   toCur].forEach((select, i)  =>{
     for(let curCode in  Country_List){
-        const selected  =   (i  === 0   &&  curCode === "USD")  ||  (i  === 1   &&  curCode === GBP) ?  "selected"  :   "";
+        const selected  =   (i  === 0   &&  curCode === "USD")  ||  (i  === 1   &&  curCode === "GBP") ?  "selected"  :   "";
         select.insertAdjacentHTML("beforeend",  `<option value="${curCode}" ${selected}>${curCode}</option>`);
     }
     select.addEventListener("change",   ()  =>{
@@ -25,10 +25,30 @@ async   function    getExchangeRate()   {
     const amountVal =   amount.value    ||  1;
     exRateTxt.innerText =   "Getting    exchange rate...";
     try{
-        const response  =   await   fetch(`https://v6.exchangerate-api.com/v6/[ApiKey]/latest/${fromCur.value}`);
+        const response  =   await   fetch(`https://v6.exchangerate-api.com/v6/6aa8030eb71b75c4317b8606/latest/${fromCur.value}`);
         const result    =   await   response.json();
-        const exchangerate  =   result.conversion_rates[toCur.value];
-        const totalExRate   =   (amount *   exchangeRate).toFixed(2);
-        exRateTxt.innerText =   `${amountVal}   ${fromCur.value}`
+        const exchangeRate  =   result.conversion_rates[toCur.value];
+        const totalExRate   =   (amountVal *   exchangeRate).toFixed(2);
+        exRateTxt.innerText =   `${amountVal}   ${fromCur.value}    =   ${totalExRate}  ${toCur.value}`;
+    }catch  (error){
+        exRateTxt.innerText =   "Something went wrong...";
     }
 }
+
+// EVENT   LISTENER FOR BUTTON EXCHANGE ICON CLICK
+
+window.addEventListener("load", getExchangeRate);
+getBtn.addEventListener("click",    (e) =>{
+    e.preventDefault();
+    getExchangeRate();
+});
+
+exIcon.addEventListener("click",    ()  =>{
+    [fromCur.value, toCur.value]    =   [toCur.value,   fromCur.value];
+    [fromCur,   toCur].forEach((select) =>{
+        const code  =   select.value;
+        const imgTag    =   select.parentElement.querySelector("img");
+        imgTag.src  =   `https://flagcdn.com/48x36/${Country_List[code].toLowerCase()}.png`;
+    });
+    getExchangeRate();
+});
