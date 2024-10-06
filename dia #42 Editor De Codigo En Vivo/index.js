@@ -77,4 +77,31 @@ function initializeCodeEditors() {
             value: ''
         })),
     };
+    return codeEditors;
 }
+
+// FUNCTION TO SET UP THE LIVE PREVIEW STUDIO WITH CODEMIRROR EDITORS AND EVENT LISTENERS
+function setupLivePreviewStudio()   {
+    const codeEditors = initializeCodeEditors();
+
+    // EVENT LISTENER FOR CHANGES IN HTML EDITOR
+    CodeMirror.on(codeEditors.html, 'change', () =>{
+        updateLiveHTMLPreview(codeEditors);
+    });
+
+    // EVENT LISTENER FOR CHANGES IN CSS EDITOR
+    CodeMirror.on(codeEditors.css, 'change', () =>{
+        updateLiveCSSPreview(codeEditors);
+    });
+    
+    // EVENT LISTENER FOR CHANGES IN JS EDITOR
+    CodeMirror.on(codeEditors.js, 'change', () =>{
+        updateLiveJSPreview(codeEditors);
+    });
+}
+
+// EVENT LISTENER TO SET UP THE LIVE PREVIEW STUDIO AFTER THE DOM IS FULLY LOADED
+document.addEventListener('DOMContentLoaded', ()  =>{
+    initializeLivePreview();
+    setupLivePreviewStudio();
+});
