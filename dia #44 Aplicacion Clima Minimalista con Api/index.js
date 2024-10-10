@@ -55,11 +55,39 @@ function fetchWeatherData(location){
         const todayHumidity = `${data.list[0].main.humidity}%`;
         const todayWindSpeed = `${data.list[0].wind.speed} km/h`;
 
-        const dayInfoContainer = document.querySelector('.day-info');
+        const dayInfoContainer = document.querySelector('.da    y-info');
         dayInfoContainer.innerHTML = `
             <div>
                 <span class"title">PRECIPITATION</span>
-                <span class"value">PRECIPITATION</span>
+                <span class"value">${todayPrecipitation} </span>
+            </div>
+            <div>
+                <span class"title">HUMIDITY</span>
+                <span class"value">${todayHumidity} </span>
+            </div>
+            <div>
+                <span class"title">WIND SPEED</span>
+                <span class"value">${todayWindSpeed} </span>
+            </div>
         `
+
+        // UPDATE NEXT 4 DAYS WEATHER
+        const today = new Date();
+        const nextDaysData = data.list.slice(1);
+
+        const uniqueDays = new Set();
+        let count = 0;
+        daysList.innerHTML = '';
+        for (const dayData of nextDaysData){
+            const forecastDate = new Date(dayData.dt_txt);
+            const dayAbbreviation = forecastDate.toLocaleDateString('en', { weekday: 'short'});
+            const dayTemp = `${Math.round(dayData.main.temp)}°C`;
+            const iconCode = dayData.weather[0].icon;
+
+            // ENSURE THE DAY ISN'T DUPLICATE AND TODAY
+            if(!uniqueDays.has(dayAbbreviation) && forecastDate.getDate() !== today.getDate()){
+                uniqueDays.add(dayAbbreviation);
+            }
+        }
     })
 }
