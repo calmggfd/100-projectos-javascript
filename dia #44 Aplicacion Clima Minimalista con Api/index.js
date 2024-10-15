@@ -87,6 +87,13 @@ function fetchWeatherData(location){
             // ENSURE THE DAY ISN'T DUPLICATE AND TODAY
             if(!uniqueDays.has(dayAbbreviation) && forecastDate.getDate() !== today.getDate()){
                 uniqueDays.add(dayAbbreviation);
+                daysList.innerHTML += `
+                    <li>
+                        <i class='bx bx-${weatherIconMap[iconCode]}'</i>
+                        <span>${dayAbbreviation}</span>
+                        <span class="day-temp">${dayTemp}</span>
+                    </li>    
+                `
             }
         }
     })
