@@ -2,7 +2,7 @@ const apiKey = "62d4f0ff0934fcca4a5d5bc126de2784";
 const locButton = document.querySelector('.loc-button');
 const todayInfo = document.querySelector('.today-info');
 const todayWeatherIcon = document.querySelector('.today-weather i');
-const todayTemp = document.querySelector('weather-temp');
+const todayTemp = document.querySelector('.weather-temp');
 const daysList = document.querySelector('.days-list');
 
 // MAPPING OF WEATHER CONDITION CODES TO ICON CLASS NAMES (DEPENDING ON OPENWHATER.API RESPONSE)
@@ -44,10 +44,10 @@ function fetchWeatherData(location){
         todayTemp.textContent = todayTemperature;
 
         // UPDATE LOCATION AND WEATHER DESCRIPTION IN THE "LEFT-INFO" SECTION
-        const locationElement = document.querySelector('today-info > div > span');
+        const locationElement = document.querySelector('.today-info > div > span');
         locationElement.textContent = `${data.city.name}, ${data.city.country}`;
 
-        const weatherDescriptionElement = document.querySelector('.today-weahter > h3');
+        const weatherDescriptionElement = document.querySelector('.today-weather > h3');
         weatherDescriptionElement.textContent = todayWeather;
 
         // UPDATE TODAYS INFO THE "DAYS-INFO" SECTION
@@ -55,19 +55,19 @@ function fetchWeatherData(location){
         const todayHumidity = `${data.list[0].main.humidity}%`;
         const todayWindSpeed = `${data.list[0].wind.speed} km/h`;
 
-        const dayInfoContainer = document.querySelector('.da    y-info');
+        const dayInfoContainer = document.querySelector('.day-info');
         dayInfoContainer.innerHTML = `
             <div>
-                <span class"title">PRECIPITATION</span>
-                <span class"value">${todayPrecipitation} </span>
+                <span class="title">PRECIPITATION</span>
+                <span class="value">${todayPrecipitation} </span>
             </div>
             <div>
-                <span class"title">HUMIDITY</span>
-                <span class"value">${todayHumidity} </span>
+                <span class="title">HUMIDITY</span>
+                <span class="value">${todayHumidity} </span>
             </div>
             <div>
-                <span class"title">WIND SPEED</span>
-                <span class"value">${todayWindSpeed} </span>
+                <span class="title">WIND SPEED</span>
+                <span class="value">${todayWindSpeed} </span>
             </div>
         `
 
@@ -89,12 +89,33 @@ function fetchWeatherData(location){
                 uniqueDays.add(dayAbbreviation);
                 daysList.innerHTML += `
                     <li>
-                        <i class='bx bx-${weatherIconMap[iconCode]}'</i>
+                        <i class='bx bx-${weatherIconMap[iconCode]}'></i>
                         <span>${dayAbbreviation}</span>
                         <span class="day-temp">${dayTemp}</span>
                     </li>    
-                `
+                `;
+                count++;
             }
+
+            // STOP AFTER GETTING 4 DISTINCT DAYS
+            if (count === 4) break;
         }
-    })
+    }).catch(error =>{
+        alert(`Error fetching weather data: ${error} (Api Error)`);
+    });
 }
+
+// FETCH WEATHER DATA ON DOCUMENT LOAD FOR DEFAULT LOCATION (GERMANY)
+
+document.addEventListener('DOMContentLoaded', ()    =>{
+    const defaultLocation = 'Chile';
+    fetchWeatherData(defaultLocation);
+});
+
+locButton.addEventListener('click', () =>{
+    const location = prompt('Enter a Location :');
+    if(!location) return;
+    
+    fetchWeatherData(location);
+    
+})
